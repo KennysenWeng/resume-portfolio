@@ -1,6 +1,8 @@
 ﻿const STORAGE_KEY = "resumePortfolioEditorData";
 const SETTINGS_KEY = "resumePortfolioEditorSettings";
 const API_RESUME_URL = "/api/resume";
+const STATIC_RESUME_URL = "../data/resume.json"; // GitHub Pages 無後端時改讀靜態檔
+let usingStaticData = false; // 為 true 代表目前沒有後端（純靜態，如 Pages）
 
 const defaultData = {
   name: "",
@@ -73,17 +75,30 @@ const saveStatus = document.querySelector("[data-save-status]");
 const themeButtons = document.querySelectorAll("[data-theme]");
 
 async function loadServerData() {
+  // 1) 先試後端 API（本機 npm start 時可用）
   try {
     const response = await fetch(API_RESUME_URL);
-    if (!response.ok) {
-      throw new Error("Failed to load server data");
+    if (response.ok) {
+      const payload = await response.json();
+      return payload.data ? { ...defaultData, ...payload.data } : null;
     }
-
-    const payload = await response.json();
-    return payload.data ? { ...defaultData, ...payload.data } : null;
   } catch {
-    return null;
+    // 後端不存在，往下試靜態檔
   }
+
+  // 2) 後援：直接讀靜態 data/resume.json（GitHub Pages 等純靜態環境）
+  try {
+    const response = await fetch(STATIC_RESUME_URL);
+    if (response.ok) {
+      const payload = await response.json();
+      usingStaticData = true;
+      return payload.data ? { ...defaultData, ...payload.data } : null;
+    }
+  } catch {
+    // 連靜態檔都讀不到，退回 localStorage
+  }
+
+  return null;
 }
 
 function loadLocalData() {
@@ -396,6 +411,14 @@ async function initialize() {
   if (serverData) {
     resumeData = serverData;
     saveData();
+  }
+
+  // 純靜態環境（無後端）隱藏「儲存檔案」鈕，避免按了出錯
+  if (usingStaticData) {
+    const saveFileButton = document.querySelector('[data-action="save-file"]');
+    if (saveFileButton) {
+      saveFileButton.hidden = true;
+    }
   }
 
   applySettings();
