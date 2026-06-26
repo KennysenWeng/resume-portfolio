@@ -1,0 +1,8 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# OS / 編輯器
+.DS_Store
+Thumbs.db
+.vscode/

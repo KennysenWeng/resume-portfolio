@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resume Portfolio Editor</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-group">
+        <a class="brand" href="#preview">履歷作品集</a>
+        <span class="save-status" data-save-status>已自動儲存</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-button" type="button" data-action="toggle-editor" aria-expanded="false" aria-controls="editor-panel">編輯內容</button>
+        <button class="icon-button" type="button" data-action="toggle-english" aria-pressed="false">顯示英文</button>
+        <button class="icon-button" type="button" data-action="compact" title="切換緊湊預覽">緊湊</button>
+        <button class="icon-button" type="button" data-action="save-file" title="將目前履歷存成後端檔案">儲存檔案</button>
+        <button class="icon-button primary" type="button" data-action="print" title="列印或另存 PDF">列印</button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <div class="drawer-backdrop" data-action="close-editor" aria-hidden="true"></div>
+
+      <aside id="editor-panel" class="editor-panel" aria-label="Resume editor" aria-hidden="true">
+        <div class="editor-header">
+          <div>
+            <p class="eyebrow">Edit</p>
+            <h1>編輯履歷內容</h1>
+          </div>
+          <button class="drawer-close" type="button" data-action="close-editor" aria-label="關閉編輯器">×</button>
+          <p>輸入後右側會即時更新。按「儲存檔案」會把目前履歷寫入後端 JSON 檔。</p>
+        </div>
+
+        <div class="editor-dashboard">
+          <div class="completion-card">
+            <div>
+              <span>完成度</span>
+              <strong data-completion-text>0%</strong>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <span data-completion-bar></span>
+            </div>
+          </div>
+          <div class="theme-picker" aria-label="色彩主題">
+            <button type="button" class="theme-swatch active" data-theme="green" title="沉穩綠"></button>
+            <button type="button" class="theme-swatch" data-theme="blue" title="專業藍"></button>
+            <button type="button" class="theme-swatch" data-theme="plum" title="深梅紫"></button>
+          </div>
+        </div>
+
+        <nav class="section-nav" aria-label="編輯區段">
+          <button type="button" data-scroll-target="profile-section">基本資料</button>
+          <button type="button" data-scroll-target="summary-section">摘要</button>
+          <button type="button" data-scroll-target="skills-section">技能</button>
+          <button type="button" data-scroll-target="experience-section">經歷</button>
+          <button type="button" data-scroll-target="projects-section">作品</button>
+        </nav>
+
+        <form id="resume-form" class="editor-form">
+          <section id="profile-section" class="form-section">
+            <h2>基本資料</h2>
+            <label>
+              <span>姓名</span>
+              <input name="name" type="text" autocomplete="name">
+            </label>
+            <label>
+              <span>職稱</span>
+              <input name="role" type="text">
+            </label>
+            <label>
+              <span>地點</span>
+              <input name="location" type="text">
+            </label>
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email">
+            </label>
+            <label>
+              <span>LinkedIn</span>
+              <input name="linkedin" type="url">
+            </label>
+            <label>
+              <span>GitHub / 作品連結</span>
+              <input name="github" type="url">
+            </label>
+          </section>
+
+          <section id="summary-section" class="form-section">
+            <h2>自我介紹</h2>
+            <label>
+              <span>摘要</span>
+              <textarea name="intro" rows="4"></textarea>
+            </label>
+            <label>
+              <span>重點數字 1</span>
+              <input name="statOne" type="text">
+            </label>
+            <label>
+              <span>重點數字 2</span>
+              <input name="statTwo" type="text">
+            </label>
+            <label>
+              <span>重點數字 3</span>
+              <input name="statThree" type="text">
+            </label>
+          </section>
+
+          <section id="skills-section" class="form-section">
+            <h2>技能</h2>
+            <label>
+              <span>技能分類 1</span>
+              <input name="skillOneTitle" type="text">
+            </label>
+            <label>
+              <span>技能內容 1</span>
+              <textarea name="skillOneText" rows="2"></textarea>
+            </label>
+            <label>
+              <span>技能分類 2</span>
+              <input name="skillTwoTitle" type="text">
+            </label>
+            <label>
+              <span>技能內容 2</span>
+              <textarea name="skillTwoText" rows="2"></textarea>
+            </label>
+            <label>
+              <span>技能分類 3</span>
+              <input name="skillThreeTitle" type="text">
+            </label>
+            <label>
+              <span>技能內容 3</span>
+              <textarea name="skillThreeText" rows="2"></textarea>
+            </label>
+          </section>
+
+          <section id="experience-section" class="form-section">
+            <h2>工作經歷</h2>
+            <label>
+              <span>經歷 1 時間</span>
+              <input name="jobOnePeriod" type="text">
+            </label>
+            <label>
+              <span>經歷 1 職稱與公司</span>
+              <input name="jobOneTitle" type="text">
+            </label>
+            <label>
+              <span>經歷 1 說明</span>
+              <textarea name="jobOneText" rows="3"></textarea>
+            </label>
+            <label>
+              <span>經歷 2 時間</span>
+              <input name="jobTwoPeriod" type="text">
+            </label>
+            <label>
+              <span>經歷 2 職稱與公司</span>
+              <input name="jobTwoTitle" type="text">
+            </label>
+            <label>
+              <span>經歷 2 說明</span>
+              <textarea name="jobTwoText" rows="3"></textarea>
+            </label>
+          </section>
+
+          <section id="projects-section" class="form-section">
+            <h2>專案作品</h2>
+            <label>
+              <span>專案 1</span>
+              <input name="projectOneTitle" type="text">
+            </label>
+            <label>
+              <span>專案 1 說明</span>
+              <textarea name="projectOneText" rows="2"></textarea>
+            </label>
+            <label>
+              <span>專案 2</span>
+              <input name="projectTwoTitle" type="text">
+            </label>
+            <label>
+              <span>專案 2 說明</span>
+              <textarea name="projectTwoText" rows="2"></textarea>
+            </label>
+            <label>
+              <span>專案 3</span>
+              <input name="projectThreeTitle" type="text">
+            </label>
+            <label>
+              <span>專案 3 說明</span>
+              <textarea name="projectThreeText" rows="2"></textarea>
+            </label>
+          </section>
+
+          <section id="education-section" class="form-section">
+            <h2>教育與語言</h2>
+            <label>
+              <span>教育</span>
+              <input name="education" type="text">
+            </label>
+            <label>
+              <span>證照</span>
+              <input name="certificate" type="text">
+            </label>
+            <label>
+              <span>語言能力</span>
+              <input name="languages" type="text">
+            </label>
+          </section>
+        </form>
+      </aside>
+
+      <section id="preview" class="preview-wrap" aria-label="Resume preview">
+        <article class="resume-page">
+          <div class="resume-ribbon"></div>
+          <section class="hero">
+            <div>
+              <p class="eyebrow">Backend / Data Integration / System Analysis</p>
+              <h2 data-field="name"></h2>
+              <p class="role" data-field="role"></p>
+              <p class="intro" data-field="intro"></p>
+            </div>
+            <aside class="profile-card">
+              <div class="avatar" data-field="initials"></div>
+              <dl>
+                <div>
+                  <dt>Location</dt>
+                  <dd data-field="location"></dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd data-field="email"></dd>
+                </div>
+                <div data-field-group="links">
+                  <dt>Links</dt>
+                  <dd><a data-field="linkedin" href="#" target="_blank" rel="noreferrer"></a></dd>
+                  <dd><a data-field="github" href="#" target="_blank" rel="noreferrer"></a></dd>
+                </div>
+              </dl>
+            </aside>
+          </section>
+
+          <div class="capability-strip" aria-label="Core capabilities">
+            <span>系統開發</span>
+            <span>流程分析</span>
+            <span>資料整合</span>
+            <span>自動化作業</span>
+            <span>文件撰寫</span>
+            <span>使用者訓練</span>
+          </div>
+
+          <section class="resume-section stats-grid">
+            <div><strong data-field="statOneNumber"></strong><span data-field="statOneLabel"></span></div>
+            <div><strong data-field="statTwoNumber"></strong><span data-field="statTwoLabel"></span></div>
+            <div><strong data-field="statThreeNumber"></strong><span data-field="statThreeLabel"></span></div>
+          </section>
+
+          <section class="resume-section">
+            <h3>技能</h3>
+            <div class="card-grid">
+              <article>
+                <h4 data-field="skillOneTitle"></h4>
+                <p data-field="skillOneText"></p>
+              </article>
+              <article>
+                <h4 data-field="skillTwoTitle"></h4>
+                <p data-field="skillTwoText"></p>
+              </article>
+              <article>
+                <h4 data-field="skillThreeTitle"></h4>
+                <p data-field="skillThreeText"></p>
+              </article>
+            </div>
+          </section>
+
+          <section class="resume-section">
+            <h3>工作經歷</h3>
+            <div class="timeline">
+              <article>
+                <p class="period" data-field="jobOnePeriod"></p>
+                <h4 data-field="jobOneTitle"></h4>
+                <p data-field="jobOneText"></p>
+              </article>
+              <article>
+                <p class="period" data-field="jobTwoPeriod"></p>
+                <h4 data-field="jobTwoTitle"></h4>
+                <p data-field="jobTwoText"></p>
+              </article>
+            </div>
+          </section>
+
+          <section class="resume-section">
+            <h3>代表專案</h3>
+            <div class="card-grid">
+              <article>
+                <p class="tag">Case Management</p>
+                <h4 data-field="projectOneTitle"></h4>
+                <p data-field="projectOneText"></p>
+              </article>
+              <article>
+                <p class="tag">Data Transformation</p>
+                <h4 data-field="projectTwoTitle"></h4>
+                <p data-field="projectTwoText"></p>
+              </article>
+              <article>
+                <p class="tag">Automation</p>
+                <h4 data-field="projectThreeTitle"></h4>
+                <p data-field="projectThreeText"></p>
+              </article>
+            </div>
+          </section>
+
+          <section class="resume-section two-column">
+            <div>
+              <h3>進修與參與</h3>
+              <p data-field="education"></p>
+              <p data-field="certificate"></p>
+            </div>
+            <div>
+              <h3>語言</h3>
+              <p data-field="languages"></p>
+            </div>
+          </section>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
