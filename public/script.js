@@ -12,6 +12,7 @@ const defaultData = {
   linkedin: "",
   github: "",
   intro: "",
+  capabilities: "",
   statOne: "",
   statTwo: "",
   statThree: "",
@@ -44,8 +45,8 @@ const highlightKeywords = [
   "獨立負責",
   "需求訪談",
   "流程分析",
+  "程式規劃",
   "資料庫",
-  "API",
   "FHIR",
   "SDLC",
   "Software Development Life Cycle",
@@ -73,6 +74,7 @@ const completionText = document.querySelector("[data-completion-text]");
 const completionBar = document.querySelector("[data-completion-bar]");
 const saveStatus = document.querySelector("[data-save-status]");
 const themeButtons = document.querySelectorAll("[data-theme]");
+const capabilityStrip = document.querySelector("[data-capabilities]");
 
 async function loadServerData() {
   // 1) 先試後端 API（本機 npm start 時可用）
@@ -237,12 +239,29 @@ function renderPreview() {
       return;
     }
 
+    // 數字區（statXNumber / statXLabel）不套用關鍵字標亮，避免大字與標籤被強制變色/換行
+    if (key && key.startsWith("stat")) {
+      node.textContent = value;
+      return;
+    }
+
     renderTextWithEnglishToggle(node, value);
   });
 
   document.querySelectorAll('[data-field-group="links"]').forEach((group) => {
     group.hidden = !hasLinks;
   });
+
+  const capabilities = String(resumeData.capabilities || "")
+    .split(/[｜|]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  capabilityStrip.replaceChildren(...capabilities.map((capability) => {
+    const tag = document.createElement("span");
+    tag.textContent = capability;
+    return tag;
+  }));
 }
 
 function fillForm() {
@@ -428,4 +447,3 @@ async function initialize() {
 }
 
 initialize();
-

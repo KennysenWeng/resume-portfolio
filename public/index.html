@@ -106,6 +106,10 @@
               <span>重點數字 3</span>
               <input name="statThree" type="text">
             </label>
+            <label>
+              <span>核心能力（以 ｜ 分隔）</span>
+              <input name="capabilities" type="text">
+            </label>
           </section>
 
           <section id="skills-section" class="form-section">
@@ -240,14 +244,7 @@
             </aside>
           </section>
 
-          <div class="capability-strip" aria-label="Core capabilities">
-            <span>系統開發</span>
-            <span>流程分析</span>
-            <span>資料整合</span>
-            <span>自動化作業</span>
-            <span>文件撰寫</span>
-            <span>使用者訓練</span>
-          </div>
+          <div class="capability-strip" data-capabilities aria-label="Core capabilities"></div>
 
           <section class="resume-section stats-grid">
             <div><strong data-field="statOneNumber"></strong><span data-field="statOneLabel"></span></div>
@@ -312,7 +309,7 @@
 
           <section class="resume-section two-column">
             <div>
-              <h3>進修與參與</h3>
+              <h3>學歷與進修</h3>
               <p data-field="education"></p>
               <p data-field="certificate"></p>
             </div>
