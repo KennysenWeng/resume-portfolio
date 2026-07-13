@@ -1,13 +1,13 @@
 {
-  "savedAt": "2026-06-29T09:29:43.907Z",
+  "savedAt": "2026-07-13T03:51:16.106Z",
   "data": {
     "name": "翁卿舜 Kennysen",
-    "role": "系統分析與開發工程師",
+    "role": "系統開發工程師",
     "location": "台中，台灣",
     "email": "kennysen870222@gmail.com",
     "linkedin": "https://www.linkedin.com/in/卿舜-翁-919095419",
     "github": "https://github.com/KennysenWeng",
-    "intro": "具 5 年醫療資訊系統分析與開發經驗，能獨立完成需求、設計、開發、驗證與上線。擅長將健保與臨床規則系統化，整合 HIS、檢驗與申報資料，建置批次篩選、API 傳送及結果回寫流程。\n\nSummary: System Analyst and Developer with 5 years of healthcare IT experience. Skilled in translating clinical rules into system logic and integrating HIS, laboratory, and claims data through batch screening, API submission, and result write-back workflows.",
+    "intro": "具 5 年系統分析與開發經驗，擅長將複雜需求轉化為清楚、可維護的系統功能，並能獨立完成需求分析、系統設計、開發測試至上線維護。具備後端開發、資料庫、API 串接、批次自動化與跨系統資料整合經驗。\n\nEngineering Focus: Outside my day-to-day healthcare IT work, I use AI-assisted development to build small, practical web tools. I enjoy turning everyday problems into clear requirements, designing workable flows, reviewing and refining the implementation, and validating the results. This practice helps me explore new technologies and continuously improve how I approach software design and delivery.",
     "capabilities": "複雜規則落地｜醫療資料整合｜跨系統自動化｜系統分析與開發｜完整功能交付",
     "statOne": "5+|年完整系統開發流程經驗",
     "statTwo": "9|家機構導入個案管理系統",
